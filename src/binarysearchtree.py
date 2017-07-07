@@ -39,6 +39,10 @@ class BinarySearchTree():
     def get(self, key):
         return self.get_from_node(key, self.rootNode)
 
+    def min(self):
+        # TODO handle case for non initialized BST
+        return self.rootNode.min()
+
     def get_from_node(self, key, node):
         if node is None:
             return None
@@ -51,7 +55,7 @@ class BinarySearchTree():
         else:
             return self.get_from_node(key, node.right)
 
-    def delete_value(self, value):
+    def delete(self, key):
         pass
 
 
@@ -72,6 +76,12 @@ class Node():
             size_left = 0 if self.left is None else self.left.size()
             size_right = 0 if self.right is None else self.right.size()
             return 1 + size_left + size_right
+
+    def min(self):
+        if self.left is None:
+            return self
+        else:
+            return self.left.min()
 
     def __eq__(self, other):
         return self.key == other.key and \

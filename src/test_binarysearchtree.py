@@ -26,3 +26,12 @@ class Test(unittest.TestCase):
 
         node = tree.get(1)
         self.assertIsNone(node)
+
+    def test_min(self):
+        tree = bst.BinarySearchTree()
+        tree.add_value(2, 'b')
+        tree.add_value(1, "a")
+        tree.add_value(3, 'c')
+
+        node = tree.min()
+        self.assertEquals(1, node.key)
