@@ -35,3 +35,7 @@ class Test(unittest.TestCase):
 
         node = tree.min()
         self.assertEquals(1, node.key)
+
+
+if __name__ == '__main__':
+    unittest.main()
