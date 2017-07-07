@@ -19,3 +19,10 @@ class Test(unittest.TestCase):
         self.assertEquals(node2, rootNode)
         node1 = tree.get(1)
         self.assertEquals(1, node1.size())
+
+    def test_get_dont_exist(self):
+        tree = bst.BinarySearchTree()
+        tree.add_value(2, 'b')
+
+        node = tree.get(1)
+        self.assertIsNone(node)
