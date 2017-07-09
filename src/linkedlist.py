@@ -70,6 +70,41 @@ class LinkedList():
             node = node.next
         return all_values
 
+
+    def remove_duplicates_no_buffer(self):
+        """ A method for removing duplicates without using a buffer.
+        We rely on two pointers: a current, which iterates on the list,
+        and a prev_runner, which will iterate on all nodes that are located
+        before the current node. The pointer prev_runner will be used to
+        detect duplicates. It only detects one, but since we progress in the
+        list, any other duplicates that were prior to current would already
+        have been removed.
+        previous is a pointer used for deletion. """
+
+        if self.first is None:
+            return
+
+        previous = self.first
+        current = previous.next
+        while current is not None:
+            runner = self.first
+            while runner != current:
+                if runner.value == current.value:
+                    # Then we remove current
+                    tmp = current.next
+                    previous.next = tmp
+                    current = tmp
+                    # All other duplicates have been removed in a previous
+                    # pass.
+                    break
+
+                runner = runner.next
+
+            # Update current and previous
+            if runner == current:
+                previous = current
+                current = current.next
+
     def pop(self):
         if self.first is not None:
             value = self.first.value
@@ -90,3 +125,11 @@ class Node():
     def __init__(self, value):
         self.value = value
         self.next = None
+
+    # def __eq__(self, other):
+    #     if self is None and other is None:
+    #         return True
+    #     if self.value != other.value:
+    #         return False
+    #     else:
+    #         return self.next == other.next

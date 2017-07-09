@@ -67,6 +67,16 @@ class Test(unittest.TestCase):
         self.assertEquals(4, linkedlist.get_size())
         self.assertEquals([1, 12, 45, 3], linkedlist.get_all())
 
+    def test_delete_dups(self):
+        linkedlist = ll.LinkedList()
+        initial = [1, 12, 3, 45, 3, 78, 90, 12, 3, 45]
+        for x in initial:
+            linkedlist.add_value(x)
+
+        linkedlist.remove_duplicates_no_buffer()
+        expected = [1, 12, 3, 45, 78, 90]
+        self.assertEquals(expected, linkedlist.get_all())
+
 
 
 
