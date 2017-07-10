@@ -44,8 +44,12 @@ def put_with_separate_chaining(hashtable, key, value):
         previous = hashtable.array[key_hash]
         while previous[2] is not None:
             previous = previous[2]
-        # APpend to the list
-        previous[2] = (key, value, None)
+        # Append to the list
+        try:
+            previous[2] = (key, value, None)
+        except Exception as e:
+            print str(previous)
+            raise e
 
 
 def put_with_open_addressing(arrary, hash, value):
