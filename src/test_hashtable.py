@@ -17,7 +17,8 @@ class Test(unittest.TestCase):
         hs = hashtable.HashTable(2, TYPE_SEPARATE_CHAINING)
         hs.put("Alexis", 3)
         hash = hs.hash_function('Alexis')
-        self.assertEquals(('Alexis', 3, None), hs.array[hash])
+        self.assertEquals(('Alexis', 3), hs.array[hash].first.value)
+        self.assertEquals(3, hs.get('Alexis'))
 
     def test_collision(self):
         # A hash function which returns 0 if the size of the string is even,
@@ -28,4 +29,6 @@ class Test(unittest.TestCase):
         hs.put('Jerome', 4)
         hs.put('Ast', 5)
 
-        print str(hs.array)
+        self.assertEquals(5, hs.get('Ast'))
+
+        

@@ -6,6 +6,8 @@
 #
 
 
+import linkedlist
+
 class HashTable():
     """ An attempt in implementing a HashTable. I'll only
     consider string keys at the moment because I'm more interested
@@ -16,19 +18,33 @@ class HashTable():
         self.size = size
         self.array = [None] * size
         self.put = lambda key, value: hashTableType.put(self, key, value)
-        self.get = lambda key, value: hashTableType.get(self, key, value)
+        self.get = lambda key: hashTableType.get(self, key)
         if hash_function is None:
             self.hash_function = lambda string: hash_function_strings(string, size)
         else:
             self.hash_function = hash_function
 
 
-def get_with_open_addressing(hashtable, key, value):
+def get_with_open_addressing(hashtable, key):
     pass
 
 
-def get_with_separate_chaining(hashtable, key, value):
-    pass
+def get_with_separate_chaining(hashtable, key):
+    hash_key = hashtable.hash_function(key)
+    ll = hashtable.array[hash_key]
+    if ll is None:
+        return None
+    else:
+        node = ll.first
+        while node is not None and node.value[0] != key:
+            node = node.next
+
+        if node is not None:
+            return node.value[1]
+        else:
+            # Key not in the Hash table
+            return None
+
 
 
 def put_with_separate_chaining(hashtable, key, value):
@@ -39,17 +55,11 @@ def put_with_separate_chaining(hashtable, key, value):
     if hashtable.array[key_hash] is None:
         # Key, value, pointer to next node
         # This is a basic linked list implem
-        hashtable.array[key_hash] = (key, value, None)
+        hashtable.array[key_hash] = linkedlist.LinkedList()
+        hashtable.array[key_hash].add_value((key, value))
     else:
-        previous = hashtable.array[key_hash]
-        while previous[2] is not None:
-            previous = previous[2]
-        # Append to the list
-        try:
-            previous[2] = (key, value, None)
-        except Exception as e:
-            print str(previous)
-            raise e
+        ll = hashtable.array[key_hash]
+        ll.add_value((key, value))
 
 
 def put_with_open_addressing(arrary, hash, value):
